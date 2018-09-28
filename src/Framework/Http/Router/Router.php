@@ -44,7 +44,7 @@ class Router
 		            // 406 NOT ACCEPTABLE
 		            break;
 		        default:
-		            // 404 NOT FOUND
+		            throw new \Exception('Page not found');
 		            break;
 		    }
 		}

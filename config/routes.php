@@ -3,9 +3,10 @@
 use Framework\Http\Router\Route;
 use Zend\Diactoros\Response;
 
-$app->get('main', '/blog/{id}', function($request) {
-	$id = (int) $request->getAttribute('id');
+$app->get('main', '/users/', function() {
     $response = new Response;
-    $response->getBody()->write("You asked for blog entry {$id}");
+    $twig = new Framework\Template\Twig;
+    $html = $twig->render('index');
+    $response->getBody()->write($html);
     return $response;
 });

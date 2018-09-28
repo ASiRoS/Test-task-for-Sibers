@@ -8,4 +8,6 @@ $app = new Framework\Http\Application;
 
 require 'config/routes.php';
 
+define('CURRENT_DIRECTORY', __DIR__);
+
 $app->run();
