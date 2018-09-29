@@ -4,7 +4,8 @@ chdir(dirname(__DIR__));
 
 require 'vendor/autoload.php';
 
-$app = new Framework\Http\Application;
+$settings = require 'config/settings.php'; 
+$app = new Framework\Http\Application($settings);
 
 require 'config/routes.php';
 

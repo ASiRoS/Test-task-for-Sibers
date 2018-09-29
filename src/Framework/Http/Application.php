@@ -5,14 +5,16 @@ namespace Framework\Http;
 use Framework\Http;
 use Framework\Http\Router\Router;
 use Framework\Http\Router\Route;
+use Framework\Core\Config;
 
 class Application
 {
 	private $router;
 
-	public function __construct()
+	public function __construct($settings)
 	{
 		$this->router = new Router();
+		Config::setConfig($settings);
 	}
 
 	public function run()
