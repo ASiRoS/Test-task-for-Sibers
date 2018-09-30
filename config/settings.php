@@ -1,6 +1,6 @@
 <?php
 
 return [
-	'siteName' => 'Title',
+	'siteName' => 'Test task for Sibers',
 	'isDev'    => true,
 ];

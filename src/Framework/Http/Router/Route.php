@@ -4,7 +4,6 @@ class Route
 {
 	private $path;
 	private $handler;
-	private $method;
 
 	public function __construct(string $path, callable $handler)
 	{
@@ -17,7 +16,7 @@ class Route
 		return $this->path;
 	}
 
-	public function hanlder()
+	public function handler()
 	{
 		return $this->handler;
 	}

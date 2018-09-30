@@ -59,23 +59,39 @@ class Router
 		return $response;
 	}
 
+	private function handler($handler)
+	{
+		if(is_array($handler)) {
+			if(class_exists($handler[0])) {
+				if(method_exists($handler[0], $handler[1])) {
+					return function() use ($handler) {
+						$class = new $handler[0];
+						 return call_user_func([$class, $handler[1]]);
+					};
+				}
+			}
+		} elseif(is_callable($handler)) {
+			return $handler;
+		}
+	}
+
 	public function get($name, $url, $handler)
 	{
-		$this->map->get($name, $url, $handler);
+		$this->map->get($name, $url, $this->handler($handler));
 	}
 
 	public function post($name, $url, $handler)
 	{
-		$this->map->post($name, $url, $handler);
+		$this->map->post($name, $url, $this->handler($handler));
 	}
 
 	public function patch($name, $url, $handler)
 	{
-		$this->map->patch($name, $url, $handler);
+		$this->map->patch($name, $url, $this->handler($handler));
 	}
 
 	public function delete($name, $url, $handler)
 	{
-		$this->map->delete($name, $url, $handler);
+		$this->map->delete($name, $url, $this->handler($handler));
 	}
 }
