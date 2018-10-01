@@ -5,6 +5,7 @@ namespace Framework\Http;
 use Zend\Diactoros\Response;
 use Framework\Core\Config;
 use Framework\Template\Twig;
+use Framework\Helper\Url;
 
 class Controller
 {
@@ -18,7 +19,7 @@ class Controller
 		$this->twig = new Twig;
 	}
 
-	protected function render(string $file, array $data) : string
+	protected function render(string $file, array $data = []) : string
 	{
 		$data = array_merge($data, [
 			'title' => Config::getSetting('siteName')
@@ -31,5 +32,20 @@ class Controller
 	{
 		$this->response->getBody()->write($html);
 		return $this->response;
+	}
+
+	public function response()
+	{
+		return $this->response;
+	}
+
+	protected function redirect($url, $queries = [])
+	{
+		Url::redirect($url, $queries);
+	}
+
+	protected function errors($request)
+	{
+		return $request->getQueryParams();
 	}
 }

@@ -50,11 +50,11 @@ class Router
 		}
 
 		foreach ($route->attributes as $key => $val) {
-		    $request = $this->request->withAttribute($key, $val);
+		    $this->request = $this->request->withAttribute($key, $val);
 		}
 
-		$callable = $route->handler;
-		$response = $callable($request);
+		$callable = $this->handler($route->handler);
+		$response = $callable($this->request);
 
 		return $response;
 	}
@@ -64,34 +64,34 @@ class Router
 		if(is_array($handler)) {
 			if(class_exists($handler[0])) {
 				if(method_exists($handler[0], $handler[1])) {
-					return function() use ($handler) {
+					return function($request) use ($handler) {
 						$class = new $handler[0];
-						 return call_user_func([$class, $handler[1]]);
+						return call_user_func([$class, $handler[1]], $request);
 					};
 				}
 			}
 		} elseif(is_callable($handler)) {
-			return $handler;
+			return $handler($this->request);
 		}
 	}
 
 	public function get($name, $url, $handler)
 	{
-		$this->map->get($name, $url, $this->handler($handler));
+		$this->map->get($name, $url, $handler);
 	}
 
 	public function post($name, $url, $handler)
 	{
-		$this->map->post($name, $url, $this->handler($handler));
+		$this->map->post($name, $url, $handler);
 	}
 
 	public function patch($name, $url, $handler)
 	{
-		$this->map->patch($name, $url, $this->handler($handler));
+		$this->map->patch($name, $url, $handler);
 	}
 
 	public function delete($name, $url, $handler)
 	{
-		$this->map->delete($name, $url, $this->handler($handler));
+		$this->map->delete($name, $url, $handler);
 	}
 }

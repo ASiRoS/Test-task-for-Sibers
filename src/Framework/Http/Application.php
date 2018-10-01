@@ -6,6 +6,7 @@ use Framework\Http;
 use Framework\Http\Router\Router;
 use Framework\Http\Router\Route;
 use Framework\Core\Config;
+use Framework\Database\Database;
 
 class Application
 {
@@ -19,12 +20,18 @@ class Application
 
 	public function run()
 	{
+		// Db initialization
+		Database::factory();
+
+		// Route's matching
 		$response = $this->router->match();
 
+		// Setting headers
 		foreach ($response->getHeaders() as $name => $values) {
 	        header(sprintf('%s: %s', $name, $value), false);
 		}
 
+		// Return result into browser
 		http_response_code($response->getStatusCode());
 		echo $response->getBody();
 	}

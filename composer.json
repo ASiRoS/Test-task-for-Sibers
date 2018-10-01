@@ -2,9 +2,15 @@
 	"require": {
 		"php": ">=7.1.0",
 		"aura/router": "^3.1",
+		"illuminate/database": "^5.7",
 		"roave/security-advisories": "dev-master",
 		"twig/twig": "^2.5",
-		"zendframework/zend-diactoros": "^2.0"
+		"zendframework/zend-diactoros": "^2.0",
+		"illuminate/events": "5.7.*",
+		"illuminate/container": "5.7.*",
+		"illuminate/pagination": "5.7.*",
+		"rcastera/session": "v1.0.0",
+		"wixel/gump": "dev-master"
 	},
 	"config": {
 		"sort-packages": true

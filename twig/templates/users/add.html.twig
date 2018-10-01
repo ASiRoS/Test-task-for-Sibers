@@ -1,0 +1,49 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block content %}
+
+{% include 'layouts/errors.html.twig' %}	
+
+<main class="container">
+	<form action="/users/store" method="POST">
+		<div class="form-group">
+			<label for="login">Login:</label>
+			<input type="text" class="form-control" id="login" name="login" placeholder="John" required>
+			<p class="text-muted">Must contain at least 3 symbols and don't exceed 30.</p>
+		</div>
+		<div class="form-group">
+			<label for="password">Password:</label>
+			<input type="password" class="form-control" id="password" name="password" required>
+			<p class="text-muted">Must contain at least 6 symbols and don't exceed 30.</p>
+		</div>
+		<div class="form-group">
+			<label for="name">First name:</label>    
+			<input type="text" class="form-control" id="name" name="name" placeholder="John" required>
+			<p class="text-muted">Required, mustn't exceed 100 symbols.</p>
+		</div>
+		<div class="form-group">
+			<label for="lastname">Last name:</label>
+			<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Wick" required>
+			<p class="text-muted">Required, mustn't exceed 100 symbols.</p>
+		</div>
+		<div class="form-group">
+			<label for="gender">Gender:</label>
+			<select name="gender" id="gender" class="form-control">
+				<option value="{{ isMale }}">Male</option>
+				<option value="{{ isFemale }}">Female</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<label for="birthday">Birthday:</label>
+			<input type="text" class="form-control" id="birthday" name="birthday" placeholder="yyyy-mm-dd" required>
+			<p class="text-muted">Required.</p>
+		</div>
+		<div class="form-group">
+			<label for="description">Description:</label>
+			<input type="text" class="form-control" id="description" name="description" placeholder="Any description">
+			<p class="text-muted">Optional.</p>
+		</div>
+		<button type="submit" class="btn btn-primary">Add</button>
+	</form>
+</main>
+{% endblock %}
