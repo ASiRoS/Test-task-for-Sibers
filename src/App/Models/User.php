@@ -39,21 +39,20 @@ class User extends \Illuminate\Database\Eloquent\Model
 
 	public function edit($fields)
 	{
-		if($validation !== true) {
-			return $validation;
-		}
+		$validation = self::validateEntries($fields, true);
 
+		if($validation !== true) {
+			return $fields;
+		}
+		
 		$this->fill($fields);
 
 		if(isset($fields['password']) && !empty($fields['password'])) {
 			$this->password = password_hash($fields['password'], PASSWORD_BCRYPT);
 		}
 
-		try {
-			return $this->saveOrFail();
-		} catch(Exception $e) {
-			echo $e->getMessage();
-		}
+		$this->saveOrFail();
+
 	}
 
 	public function getAvatarAttribute($avatar)
